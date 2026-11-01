@@ -29,9 +29,22 @@ MJOptoLevelerAudioProcessorEditor::MJOptoLevelerAudioProcessorEditor (
     styleLabel (inputLabel, "INPUT");
     styleLabel (outputLabel, "OUTPUT");
 
-    for (auto* c : { (juce::Component*) &peakReduction, &gain, &mix, &input, &output,
-                     &peakLabel, &gainLabel, &mixLabel, &inputLabel, &outputLabel })
-        addAndMakeVisible (c);
+    juce::Component* components[] =
+{
+    &peakReduction,
+    &gain,
+    &mix,
+    &input,
+    &output,
+    &peakLabel,
+    &gainLabel,
+    &mixLabel,
+    &inputLabel,
+    &outputLabel
+};
+
+for (auto* component : components)
+    addAndMakeVisible (component);
 
     limitMode.setButtonText ("LIMIT");
     valve.setButtonText ("VALVE COLOR");
