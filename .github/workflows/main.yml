@@ -22,8 +22,8 @@ jobs:
           path: JUCE
 
       - name: Configure CMake
-       run: cmake -S MCOM_JUCE7 -B build -DJUCE_DIR="${{ github.workspace }}/JUCE" -G "Visual Studio 17 2022" -A x64
-
+        run: cmake -S MCOM_JUCE7 -B build -DJUCE_DIR="${{ github.workspace }}/JUCE" -G "Visual Studio 17 2022" -A x64
+       
       - name: Build MCOM VST3
         run: cmake --build build --config Release --target MCOM_VST3
 
