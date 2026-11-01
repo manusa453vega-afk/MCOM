@@ -1,0 +1,35 @@
+
+name: Build MCOM VST3
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout MCOM
+        uses: actions/checkout@v4
+
+      - name: Checkout JUCE 7
+        uses: actions/checkout@v4
+        with:
+          repository: juce-framework/JUCE
+          ref: 7.0.12
+          path: JUCE
+
+      - name: Configure CMake
+        run: cmake -S . -B build -DJUCE_DIR="${{ github.workspace }}/JUCE" -G "Visual Studio 17 2022" -A x64
+
+      - name: Build MCOM VST3
+        run: cmake --build build --config Release --target MCOM_VST3
+
+      - name: Upload MCOM VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: MCOM-Windows-VST3
+          path: build/MCOM_artefacts/Release/VST3/MCOM.vst3
+          if-no-files-found: error
